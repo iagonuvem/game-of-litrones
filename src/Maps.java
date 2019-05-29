@@ -10,19 +10,70 @@ import java.util.*;
  * @author Iago Nuvem
  */
 public class Maps {
+    private String name;
+    private double difficulty;
     private int graphInfo[];
     private int adjMatrix[][];
     
-    public Maps(){
+    /**
+     * Construtor com dificuldade por parametro
+     * @param d {Nível de dificuldade | entre 0 e 1}
+     */
+    public Maps(double d){
         this.graphInfo = new int[2];
+        this.adjMatrix = null;
+        this.difficulty = d;
     }
     
+    public void setName(String n){
+        this.name = n;
+    }
+    
+    public String getName(){
+        return this.name;
+    }
+   
     public int getVertex(){
         return this.graphInfo[0];
     }
     
     public int getEdges(){
         return this.graphInfo[1];
+    }
+    
+    
+    public int[][] getAdjMatrix(){
+        return this.adjMatrix;
+    }
+    public double getDifficulty(){
+        return this.difficulty;
+    }
+    
+    public void setAdjMatrix(int[][] m){
+        this.adjMatrix = m;
+    }
+    
+    /**
+     * Retorna um vetor com as celulas adjacentes
+     * @param i {numero da celula}
+     * @return 
+     */
+    public int[] getAdjList(int i){
+        List<Integer> ints = new ArrayList<>();
+        for(int j = 0; j < this.graphInfo[0]; j++){
+            if(this.adjMatrix[i][j] != 0){
+                ints.add(j);
+            }
+        }
+        
+        int size = ints.size();
+        int[] result = new int[size];
+        Integer[] temp = ints.toArray(new Integer[size]);
+        for (int n = 0; n < size; n++) {
+            result[n] = temp[n];
+        }
+
+        return result;
     }
     
     /**
@@ -52,7 +103,7 @@ public class Maps {
                     // Número aleatório de 0 a 1
                     double num = random.nextDouble();
                     
-                    // Se numero randomico estiver no intervalo 0 ~ Densidade, coloca 1, senão coloca 0
+                    // Se numero randomico estiver no intervalo 0 ~ Densidade, gera um valor entre 1 e 100 (prob batalha), senão coloca 0
                     if(num <= d){ 
                         this.adjMatrix[i][j] = 1;
                         this.graphInfo[1]++;
@@ -65,6 +116,15 @@ public class Maps {
             }
             if(connected == false){
                 int num = random.nextInt((this.graphInfo[0]-1));
+                
+                // Prevenção de existencia de laços
+                if(num == i && num == 0){
+                    num++;
+                }
+                else if(num == i && num > 1){
+                    num--;
+                }
+                
                 this.adjMatrix[i][num] = 1;
                 this.graphInfo[1]++;
             }
@@ -96,7 +156,7 @@ public class Maps {
              // Cria matriz de adjacencia V por V
             this.adjMatrix = new int[this.graphInfo[0]][this.graphInfo[0]];
             
-            //Preenche matriz de incidencia com 0
+            //Preenche matriz de adjacencia com 0
             for(int i = 0; i < this.graphInfo[0]; ++i){
                for(int j = 0; j < this.graphInfo[0]; ++j){
                     this.adjMatrix[i][j] = 0;
@@ -121,5 +181,14 @@ public class Maps {
         }
         
         
+    }
+    
+    public void printAdjMatrix(){
+        for(int i = 0; i < this.adjMatrix.length; i++){
+            for(int j = 0; j < this.adjMatrix.length; j++){
+                System.out.printf(this.adjMatrix[i][j]+"\t");
+            }
+            System.out.printf("\n");
+        }
     }
 }
