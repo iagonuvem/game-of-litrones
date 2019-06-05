@@ -65,13 +65,24 @@ public class GameOfLitrones {
             System.out.println("\nIniciando Jogo...");
             Characters p1 = battlefield.newPlayer(player);
             game.playerInfo(p1);
+            boolean battle = false;
+            do{
+                int destination = game.getMove(p1);
+                boolean confirm = game.confirmMove(destination);
+                while(!confirm){
+                    destination = game.getMove(p1);
+                    confirm = game.confirmMove(destination);
+                }
+                battle = battlefield.movePlayer(p1, destination);
+                System.out.println("Voce esta em: "+p1.getPosition());
+                if(battle){
+                    Cells currentCell = battlefield.getCell(p1.getPosition());
+                    currentCell.battle(p1);  
+                }else{
+                    System.out.println("Não houve batalha!");
+                }
+            }while(!battle);
             
-            int destination = game.getMove(p1);
-            boolean confirm = game.confirmMove(destination);
-            while(!confirm){
-                game.getMove(p1);
-                confirm = game.confirmMove(destination);
-            }
             
             
         }else if(n == 2){

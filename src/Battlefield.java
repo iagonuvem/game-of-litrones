@@ -83,17 +83,16 @@ public class Battlefield {
         return false;
     }
     
-    public int movePlayer(Characters c, int destination){
+    /**
+     * Move o personagem e retorna se houve batalha ou não
+     * @param c {Characters | obj do personagem}
+     * @param destination {int | celula destino}
+     * @return 
+     */
+    public Boolean movePlayer(Characters c, int destination){
         Cells cell = getCell(destination);
-        if(cell.sortBattle()){
-            //Se houver batalha
-            lockCell(destination);
-            cell.battle(c);
-        }else{
-            //Se não houver batalha
-        }
         c.setPosition(destination);
-        return 0;
+        return cell.sortBattle(); //Se houver batalha
     }
     
     public Cells getCell(int i){

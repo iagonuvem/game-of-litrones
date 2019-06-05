@@ -47,7 +47,23 @@ public class Cells{
      * @param c {Objeto que representa o personagem}
      */
     public void battle(Characters c){
-    
+        System.out.println("\n|\tINICIO DE BATALHA\t|");
+        for(Characters monster : this.monsters) {
+            int i = 0;
+            while(monster.getHp() > 0){
+                if(i%2 == 0){ // par
+                    if(c.getHp() > 0){ // verifica se o heroi ainda não morreu
+                        c.attack(monster);
+                    }else{
+                        System.out.println("Game over!");
+                        break;
+                    }
+                }else{
+                    monster.attack(c);
+                }
+                i++;
+            }
+        }
     }
     
     /**
@@ -55,7 +71,7 @@ public class Cells{
      */
     public void printMonstersName(){
         for(Characters monster : this.monsters) {
-           System.out.println("["+monster.getName()+"]:\tAtk:"+monster.getName()+"\tDef:"+monster.getName()); 
+           System.out.println("["+monster.getName()+"]:\tHp:"+monster.getHp()+"\tDef:"+monster.getName()); 
         }
     }
     

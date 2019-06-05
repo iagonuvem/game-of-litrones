@@ -27,6 +27,7 @@ public class Characters {
     
     public Characters(){
         this.name = "bot";
+        this.hp = 10;
     }
     
     public Characters(String name){
@@ -70,8 +71,10 @@ public class Characters {
     // Métodos Getteres
     public String getName(){return this.name;}
     public int getPosition(){return this.position;}
+    public int getHp(){return this.hp;}
     
     public void attack(Characters opponent){
+        System.out.println(this.name+" atacou "+ opponent.getName());
         defense(opponent);
     }
     
