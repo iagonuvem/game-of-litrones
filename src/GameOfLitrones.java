@@ -61,9 +61,15 @@ public class GameOfLitrones {
             
             System.out.printf("Nome do Jogador: ");
             String player = game.readString();
+            System.out.printf("Selecione o seu tipo de jogador:\n(1)Guerreiro\t(2)Mago\t(3)Ninja ");
+            int type = ler.nextInt();
+            while(!(type == 1 || type == 2 || type == 3)){
+                System.out.println("ENTRADA INVÁLIDA! Digite novamente...");
+                type = ler.nextInt();
+            }
             
             System.out.println("\nIniciando Jogo...");
-            Characters p1 = battlefield.newPlayer(player);
+            Characters p1 = battlefield.newPlayer(player,type);
             game.playerInfo(p1);
             boolean battle = false;
             do{
@@ -77,7 +83,12 @@ public class GameOfLitrones {
                 System.out.println("Voce esta em: "+p1.getPosition());
                 if(battle){
                     Cells currentCell = battlefield.getCell(p1.getPosition());
-                    currentCell.battle(p1);  
+                    boolean resume = currentCell.battle(p1);
+                    if(!resume){
+                        System.out.println("XXXXXXXX GAME OVER XXXXXXXX");
+                    }else{
+                        battle = false;
+                    }
                 }else{
                     System.out.println("Não houve batalha!");
                 }

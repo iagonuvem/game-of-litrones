@@ -39,24 +39,24 @@ public class Cells{
     public boolean sortBattle(){
         Random random = new Random();
         double num = random.nextDouble();
-        return this.combatProb > num;
+        return this.combatProb > num && this.monsters.length > 0;
     }
     
     /**
      * Função que realiza a batalha em turnos
      * @param c {Objeto que representa o personagem}
+     * @return {Sobreviveu à célula ou não}
      */
-    public void battle(Characters c){
+    public boolean battle(Characters c){
         System.out.println("\n|\tINICIO DE BATALHA\t|");
+        int i = 0;
         for(Characters monster : this.monsters) {
-            int i = 0;
             while(monster.getHp() > 0){
                 if(i%2 == 0){ // par
                     if(c.getHp() > 0){ // verifica se o heroi ainda não morreu
                         c.attack(monster);
                     }else{
-                        System.out.println("Game over!");
-                        break;
+                        return false;
                     }
                 }else{
                     monster.attack(c);
@@ -64,6 +64,7 @@ public class Cells{
                 i++;
             }
         }
+        return true;
     }
     
     /**

@@ -30,9 +30,9 @@ public class Game {
     public void playerInfo(Characters c){
         System.out.println("________________________________");
         System.out.println("| "+c.getName());
-        System.out.println("| Atk: 00\t| Def: 00\t|");
-        System.out.println("| Esq: 00\t| Vel: 00\t|");
-        System.out.println("| Gelo: 00\t| Fogo: 00\t|");
+        System.out.println("| Hp: "+c.getHp()+"\t| Atk: "+c.getAtk()+"\t|");
+        System.out.println("| Esq: "+c.getEsq()+"\t| Magia: "+c.getMp()+"\t|");
+        System.out.println("| Res.Gelo: "+c.getRgelo()+"\t| Res.Fogo: "+c.getRfogo()+"\t|");
         System.out.println("________________________________");
     }
     

@@ -57,11 +57,11 @@ public class Battlefield {
         
     }
     
-    public Characters newPlayer(String name){
+    public Characters newPlayer(String name, int type){
         Random random = new Random();
         int startCell = random.nextInt(this.cells.length);
         
-        Characters p = new Characters(name);
+        Characters p = new Characters(name,type);
         p.setPosition(startCell);
         
         return p;
